@@ -4,7 +4,14 @@ import {HEROES} from "./mock-heroes";
 
 @Injectable()
 export class HeroService {
-  getHeroes(): Hero[] {
-    return HEROES;
-  } // stub
+  getHeroes(): Promise<Hero[]> {
+    return Promise.resolve(HEROES);
+  }
+
+  getHeroesSlowly(): Promise<Hero[]> {
+    // Simulate server latency with 2 second delay
+    return new Promise(resolve => {
+      setTimeout(() => resolve(this.getHeroes()), 2000)
+    })
+  }
 }
